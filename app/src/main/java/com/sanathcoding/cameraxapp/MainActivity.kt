@@ -89,6 +89,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
+        // Create time Stamped name and MediaStore entry
+        val name = SimpleDateFormat(FILE_FORMAT, Locale.US).format(System.currentTimeMillis())
+        val contentValue = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image.jpeg")
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/CameraX-Image")
+        }
+
+        // Create output options object which contain file + metadata
+        val outPutOption = ImageCapture.OutputFileOptions.Builder(
+            contentResolver,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            contentValue
+        ).build()
+
+        // set up the image capture listener Which is trigger after the image captured
+        imageCapture?.takePicture(
+            outPutOption,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(results: ImageCapture.OutputFileResults) {
+                    val msg = "Photo captured successfully ${results.savedUri}"
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
+                    Log.d(TAG, msg)
+                }
+
+                override fun onError(e: ImageCaptureException) {
+                    Log.d(TAG, "Photo capture failed: ${e.message}", e)
+                }
+
+            }
+        )
 
     }
 }
