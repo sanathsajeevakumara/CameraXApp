@@ -6,8 +6,8 @@ import android.os.Build
 import androidx.core.content.ContextCompat
 
 object CameraValues {
-    private const val TAG = "cameraXApp"
-    private const val FILE_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+    public const val TAG = "cameraXApp"
+    public const val FILE_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
     public val REQUIRED_PERMISSION =
         mutableListOf(
             android.Manifest.permission.CAMERA
