@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onError(e: ImageCaptureException) {
-                    Log.d(TAG, "Photo capture failed : ${e.message}", e)
+                    Log.d(TAG, "Photo capture failed: ${e.message}", e)
                 }
 
             }
