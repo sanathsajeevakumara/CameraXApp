@@ -28,10 +28,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
 
     // If using cameraController
-    private lateinit var cameraController: LifecycleCameraController
+//    private lateinit var cameraController: LifecycleCameraController
 
     // If using Camera Provide
-//    private val imageProvider: ImageCapture? = null
+    private val imageProvider: ImageCapture? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,12 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startCamera() {
-        val previewView: PreviewView = viewBinding.viewFinder
-        cameraController = LifecycleCameraController(baseContext)
-        cameraController.bindToLifecycle(this)
-        // Open the Default front camera. By default this is the back camera
-        cameraController.cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
-        previewView.controller = cameraController
+
     }
 
     private fun takePhoto() {
@@ -89,22 +84,22 @@ class MainActivity : AppCompatActivity() {
         ).build()
 
         // set up the image capture listener Which is trigger after the image captured
-        cameraController.takePicture(
-            outPutOption,
-            ContextCompat.getMainExecutor(this),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onImageSaved(results: ImageCapture.OutputFileResults) {
-                    val msg = "Photo captured successfully ${results.savedUri}"
-                    Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
-                    Log.d(TAG, msg)
-                }
-
-                override fun onError(e: ImageCaptureException) {
-                    Log.d(TAG, "Photo capture failed: ${e.message}", e)
-                }
-
-            }
-        )
+//        cameraController.takePicture(
+//            outPutOption,
+//            ContextCompat.getMainExecutor(this),
+//            object : ImageCapture.OnImageSavedCallback {
+//                override fun onImageSaved(results: ImageCapture.OutputFileResults) {
+//                    val msg = "Photo captured successfully ${results.savedUri}"
+//                    Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
+//                    Log.d(TAG, msg)
+//                }
+//
+//                override fun onError(e: ImageCaptureException) {
+//                    Log.d(TAG, "Photo capture failed: ${e.message}", e)
+//                }
+//
+//            }
+//        )
 
     }
 }
